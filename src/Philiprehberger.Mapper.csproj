@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>Philiprehberger.Mapper</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Philip Rehberger</Authors>
+    <Description>Ultra-simple object-to-object mapper with convention-based mapping and fluent overrides</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/philiprehberger/dotnet-mapper</RepositoryUrl>
+    <PackageTags>mapper;object-mapping;dto;automapper;convention</PackageTags>
+  </PropertyGroup>
+
+</Project>
