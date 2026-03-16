@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Philiprehberger.Mapper</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Authors>Philip Rehberger</Authors>
     <Description>Ultra-simple object-to-object mapper with convention-based mapping and fluent overrides</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
