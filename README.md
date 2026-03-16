@@ -1,5 +1,9 @@
 # Philiprehberger.Mapper
 
+[![CI](https://github.com/philiprehberger/dotnet-mapper/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/dotnet-mapper/actions/workflows/ci.yml)
+[![NuGet](https://img.shields.io/nuget/v/Philiprehberger.Mapper.svg)](https://www.nuget.org/packages/Philiprehberger.Mapper)
+[![License](https://img.shields.io/github/license/philiprehberger/dotnet-mapper)](LICENSE)
+
 Ultra-simple object-to-object mapper with convention-based mapping and fluent overrides.
 
 ## Install
@@ -112,6 +116,12 @@ MapperDiagnostics.ValidateMapping<Order, OrderDto>();
 | Property | Description |
 |----------|-------------|
 | `DestinationType` | The target type this class maps to |
+
+## Development
+
+```bash
+dotnet build src/Philiprehberger.Mapper.csproj --configuration Release
+```
 
 ## License
 
