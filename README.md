@@ -6,7 +6,7 @@
 
 Ultra-simple object-to-object mapper with convention-based mapping and fluent overrides.
 
-## Install
+## Installation
 
 ```bash
 dotnet add package Philiprehberger.Mapper
