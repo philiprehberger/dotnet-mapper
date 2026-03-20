@@ -53,7 +53,7 @@ public sealed class MappingConfiguration<TSource, TDestination>
     /// </summary>
     /// <typeparam name="TSourceMember">The source expression type (unused, for API clarity).</typeparam>
     /// <typeparam name="TDestMember">The destination property type.</typeparam>
-    /// <param name="source">An expression selecting the source property (for documentation).</param>
+    /// <param name="destination">An expression selecting the destination property.</param>
     /// <param name="resolver">A function that receives the source object and returns the destination value.</param>
     /// <returns>This configuration instance for chaining.</returns>
     public MappingConfiguration<TSource, TDestination> MapFrom<TSourceMember, TDestMember>(
