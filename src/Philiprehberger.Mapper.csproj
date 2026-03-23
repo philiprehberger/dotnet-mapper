@@ -7,9 +7,9 @@
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <PackageId>Philiprehberger.Mapper</PackageId>
-    <Version>0.1.4</Version>
+    <Version>0.1.5</Version>
     <Authors>Philip Rehberger</Authors>
-    <Description>Ultra-simple object-to-object mapper with convention-based mapping and fluent overrides</Description>
+    <Description>Ultra-simple object-to-object mapper with convention-based mapping and fluent overrides.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/philiprehberger/dotnet-mapper</RepositoryUrl>
     <PackageTags>mapper;object-mapping;dto;automapper;convention</PackageTags>
