@@ -3,6 +3,7 @@
 [![CI](https://github.com/philiprehberger/dotnet-mapper/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/dotnet-mapper/actions/workflows/ci.yml)
 [![NuGet](https://img.shields.io/nuget/v/Philiprehberger.Mapper.svg)](https://www.nuget.org/packages/Philiprehberger.Mapper)
 [![License](https://img.shields.io/github/license/philiprehberger/dotnet-mapper)](LICENSE)
+[![Sponsor](https://img.shields.io/badge/sponsor-GitHub%20Sponsors-ec6cb9)](https://github.com/sponsors/philiprehberger)
 
 Ultra-simple object-to-object mapper with convention-based mapping and fluent overrides.
 
@@ -125,4 +126,4 @@ dotnet build src/Philiprehberger.Mapper.csproj --configuration Release
 
 ## License
 
-MIT
+[MIT](LICENSE)
