@@ -17,6 +17,7 @@ jobs:
           dotnet-version: '8.0.x'
       - run: dotnet restore src/Philiprehberger.Mapper.csproj
       - run: dotnet build src/Philiprehberger.Mapper.csproj --configuration Release --no-restore
+      - run: dotnet test tests/Philiprehberger.Mapper.Tests/Philiprehberger.Mapper.Tests.csproj --configuration Release --no-restore
 
   publish:
     needs: build

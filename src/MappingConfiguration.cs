@@ -15,6 +15,7 @@ public sealed class MappingConfiguration<TSource, TDestination>
     internal HashSet<string> IgnoredProperties { get; } = new(StringComparer.OrdinalIgnoreCase);
     internal Dictionary<string, Func<object, object?>> CustomResolvers { get; } = new(StringComparer.OrdinalIgnoreCase);
     internal Dictionary<string, string> ExplicitMappings { get; } = new(StringComparer.OrdinalIgnoreCase);
+    internal Dictionary<(Type Source, Type Dest), object> ValueConverters { get; } = new();
 
     /// <summary>
     /// Maps a source property to a destination property with the same type,
@@ -65,7 +66,25 @@ public sealed class MappingConfiguration<TSource, TDestination>
         return this;
     }
 
-    private static string GetMemberName<T, TMember>(Expression<Func<T, TMember>> expression)
+    /// <summary>
+    /// Registers a custom value converter for mapping between two property types.
+    /// When a source property of type <typeparamref name="TSrc"/> is mapped to a
+    /// destination property of type <typeparamref name="TDest"/>, the converter is
+    /// used instead of the default assignment.
+    /// </summary>
+    /// <typeparam name="TSrc">The source property type.</typeparam>
+    /// <typeparam name="TDest">The destination property type.</typeparam>
+    /// <param name="converter">The value converter instance.</param>
+    /// <returns>This configuration instance for chaining.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="converter"/> is null.</exception>
+    public MappingConfiguration<TSource, TDestination> UseConverter<TSrc, TDest>(IValueConverter<TSrc, TDest> converter)
+    {
+        ArgumentNullException.ThrowIfNull(converter);
+        ValueConverters[(typeof(TSrc), typeof(TDest))] = converter;
+        return this;
+    }
+
+    internal static string GetMemberName<T, TMember>(Expression<Func<T, TMember>> expression)
     {
         return expression.Body switch
         {

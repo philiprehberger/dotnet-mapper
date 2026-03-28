@@ -2,7 +2,11 @@
 
 [![CI](https://github.com/philiprehberger/dotnet-mapper/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/dotnet-mapper/actions/workflows/ci.yml)
 [![NuGet](https://img.shields.io/nuget/v/Philiprehberger.Mapper.svg)](https://www.nuget.org/packages/Philiprehberger.Mapper)
+[![GitHub release](https://img.shields.io/github/v/release/philiprehberger/dotnet-mapper)](https://github.com/philiprehberger/dotnet-mapper/releases)
+[![Last updated](https://img.shields.io/github/last-commit/philiprehberger/dotnet-mapper)](https://github.com/philiprehberger/dotnet-mapper/commits/main)
 [![License](https://img.shields.io/github/license/philiprehberger/dotnet-mapper)](LICENSE)
+[![Bug Reports](https://img.shields.io/github/issues/philiprehberger/dotnet-mapper/bug)](https://github.com/philiprehberger/dotnet-mapper/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
+[![Feature Requests](https://img.shields.io/github/issues/philiprehberger/dotnet-mapper/enhancement)](https://github.com/philiprehberger/dotnet-mapper/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
 [![Sponsor](https://img.shields.io/badge/sponsor-GitHub%20Sponsors-ec6cb9)](https://github.com/sponsors/philiprehberger)
 
 Ultra-simple object-to-object mapper with convention-based mapping and fluent overrides.
@@ -44,45 +48,65 @@ Mapper.Configure<Order, OrderDto>(cfg => cfg
 var dto = Mapper.Map<Order, OrderDto>(order);
 ```
 
+### Collection Mapping
+
+```csharp
+var orders = new List<Order> { order1, order2, order3 };
+
+// Map to List
+List<OrderDto> dtos = Mapper.MapList<Order, OrderDto>(orders);
+
+// Map to Array
+OrderDto[] array = Mapper.MapArray<Order, OrderDto>(orders);
+
+// Map to lazy IEnumerable
+IEnumerable<OrderDto> enumerable = Mapper.MapEnumerable<Order, OrderDto>(orders);
+```
+
+### Nested Object Mapping
+
+Complex properties are recursively mapped when source and destination have matching property names with different complex types:
+
+```csharp
+public class Order { public Address ShippingAddress { get; set; } }
+public class OrderDto { public AddressDto ShippingAddress { get; set; } }
+
+var dto = Mapper.Map<Order, OrderDto>(order);
+// dto.ShippingAddress is mapped from order.ShippingAddress recursively
+```
+
+### Custom Value Converters
+
+```csharp
+public class StringToDateConverter : IValueConverter<string, DateTime>
+{
+    public DateTime Convert(string source) => DateTime.Parse(source);
+}
+
+Mapper.Configure<Order, OrderDto>(cfg => cfg
+    .UseConverter<string, DateTime>(new StringToDateConverter()));
+
+var dto = Mapper.Map<Order, OrderDto>(order);
+// String properties are converted to DateTime using the registered converter
+```
+
 ### Flattening
 
 Nested properties are automatically flattened by naming convention:
 
 ```csharp
-public class Order
-{
-    public Address ShippingAddress { get; set; }
-}
+public class Order { public Address ShippingAddress { get; set; } }
+public class Address { public string City { get; set; } }
+public class FlatDto { public string ShippingAddressCity { get; set; } }
 
-public class Address
-{
-    public string City { get; set; }
-}
-
-public class OrderDto
-{
-    public string ShippingAddressCity { get; set; } // Auto-mapped from Order.ShippingAddress.City
-}
-
-var dto = Mapper.Map<Order, OrderDto>(order);
-```
-
-### MapTo Attribute
-
-Mark source classes for documentation and discovery:
-
-```csharp
-[MapTo(typeof(OrderDto))]
-public class Order { /* ... */ }
+var dto = Mapper.Map<Order, FlatDto>(order);
+// dto.ShippingAddressCity = order.ShippingAddress.City
 ```
 
 ### Diagnostics
 
 ```csharp
-// Find unmapped properties
 var unmapped = MapperDiagnostics.GetUnmappedProperties<Order, OrderDto>();
-
-// Throw if any destination properties are unmapped
 MapperDiagnostics.ValidateMapping<Order, OrderDto>();
 ```
 
@@ -94,6 +118,9 @@ MapperDiagnostics.ValidateMapping<Order, OrderDto>();
 |--------|-------------|
 | `Map<TSource, TDest>(source)` | Maps source to a new destination instance |
 | `Map<TSource, TDest>(source, dest)` | Maps source onto an existing destination |
+| `MapList<TSource, TDest>(source)` | Maps a collection to a `List<TDest>` |
+| `MapArray<TSource, TDest>(source)` | Maps a collection to a `TDest[]` array |
+| `MapEnumerable<TSource, TDest>(source)` | Maps a collection to a lazy `IEnumerable<TDest>` |
 | `Configure<TSource, TDest>(configure)` | Registers fluent mapping overrides |
 | `Reset()` | Clears all configurations and cached mappings |
 
@@ -104,6 +131,13 @@ MapperDiagnostics.ValidateMapping<Order, OrderDto>();
 | `Map<T>(source, dest)` | Explicitly maps a source property to a destination property |
 | `Ignore(member)` | Excludes a destination property from mapping |
 | `MapFrom<TSrc, TDest>(dest, resolver)` | Maps a destination property using a custom resolver function |
+| `UseConverter<TSrc, TDest>(converter)` | Registers a value converter for type pair conversion |
+
+### `IValueConverter<TSource, TDestination>`
+
+| Method | Description |
+|--------|-------------|
+| `Convert(source)` | Converts a source value to the destination type |
 
 ### `MapperDiagnostics`
 
@@ -123,6 +157,13 @@ MapperDiagnostics.ValidateMapping<Order, OrderDto>();
 ```bash
 dotnet build src/Philiprehberger.Mapper.csproj --configuration Release
 ```
+
+## Support
+
+If you find this package useful, consider giving it a star on GitHub — it helps motivate continued maintenance and development.
+
+[![LinkedIn](https://img.shields.io/badge/Philip%20Rehberger-LinkedIn-0A66C2?logo=linkedin)](https://www.linkedin.com/in/philiprehberger)
+[![More packages](https://img.shields.io/badge/more-open%20source%20packages-blue)](https://philiprehberger.com/open-source-packages)
 
 ## License
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 (2026-03-27)
+
+- Add collection mapping support (MapList for List, Array, IEnumerable)
+- Add recursive nested object mapping
+- Add custom value converters with IValueConverter interface
+- Add expression tree compilation for improved mapping performance
+
 ## 0.1.6 (2026-03-26)
 
 - Add Sponsor badge to README
